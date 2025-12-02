@@ -1,0 +1,21 @@
+build:
+  gpu: true
+  cuda: "12.1"
+  python_version: "3.10"
+  system_packages:
+    - "git"
+    - "curl"
+  python_packages:
+    - "torch==2.1.2"
+    - "torchvision==0.16.2"
+    - "pillow==10.2.0"
+    - "hydra-core==1.3.2"
+    - "omegaconf==2.3.0"
+    - "submitit==1.5.1"
+    - "timm==0.9.12"
+  run:
+    - "git clone --depth 1 https://github.com/facebookresearch/dinov3.git /src/dinov3_repo"
+    - "pip install -e /src/dinov3_repo"
+    - "mkdir -p /src/checkpoints"
+    - "curl -o /src/checkpoints/model.pth https://static.peelapi.com/models/dinov3_vitl16_pretrain_lvd1689m-8aa4cbdd.pth"
+predict: "predict.py:Predictor"
